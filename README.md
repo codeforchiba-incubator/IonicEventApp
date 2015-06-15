@@ -1,5 +1,5 @@
 # イベント情報を公開するIonicアプリケーション
-アプリには[こちら](http://david3080.github.io/IonicEventApp)から参照。
+アプリには[こちら](http://codeforchiba.github.io/IonicEventApp)から参照。
 
 ## TODO
 - ログイン機能の実装

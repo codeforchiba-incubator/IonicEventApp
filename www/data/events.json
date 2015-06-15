@@ -1,0 +1,77 @@
+[
+  {
+    "@context": "http://schema.org",
+    "@type": "Event",
+    "id": 1,
+    "name": "宗吾霊堂紫陽花まつり",
+    "startDate": "2015-06-07",
+    "endDate": "2015-06-28",
+    "location": {
+      "@type": "Place",
+      "name": "千葉県成田市　宗吾霊堂",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "成田市",
+        "addressRegion": "千葉",
+        "postalCode": "286-0004"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "35.760999",
+        "longitude": "140.279543"
+      }
+    },
+    "image": "http://i.ytimg.com/vi/6SiCIyJc47Y/hqdefault.jpg",
+    "description": "宗吾霊堂大本堂裏手には、7,000株を数える広大なあじさい園があります。このあじさい園には、在来アジサイをはじめ、ガクアジサイ、柏葉アジサイなど様々な紫陽花が植えられています。"
+  },
+  {
+    "@context": "http://schema.org",
+    "@type": "Event",
+    "id": 2,
+    "name": "弘法大師　興教大師　誕生会",
+    "startDate": "2015-06-15",
+    "endDate": "2015-06-15",
+    "location": {
+      "@type": "Place",
+      "name": "千葉県成田市　成田山新勝寺",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "成田市",
+        "addressRegion": "千葉",
+        "postalCode": "286-0023"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "35.786056",
+        "longitude": "140.318286"
+      }
+    },
+    "image": "http://www7b.biglobe.ne.jp/~boramichi/pic/daihondou.jpg",
+    "description": "６月は、真言宗を開かれた弘法大師と、大師の教えを再興された興教大師の御誕生の月です。両祖大師に感謝の誠を捧げる法要を行います。"
+  },
+  {
+    "@context": "http://schema.org",
+    "@type": "Event",
+    "id": 3,
+    "name": "成田祇園祭（成田山祇園会）",
+    "startDate": "2015-07-07",
+    "endDate": "2015-07-12",
+    "location": {
+      "@type": "Place",
+      "name": "千葉県成田市　成田山新勝寺",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "成田市",
+        "addressRegion": "千葉",
+        "postalCode": "286-0023"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "35.786056",
+        "longitude": "140.318286"
+      }
+    },
+    "image": "http://www7b.biglobe.ne.jp/~boramichi/pic/daihondou.jpg",
+    "description": "成田山祇園会の期間に限り、大日如来が奉安されている奥之院が開扉され、五穀豊穣などを祈願します。大日如来をご尊体とした御輿を先頭に山車や屋台が巡行します。また光明堂では天国宝剣による特別御加持が行われます。"
+  }
+]

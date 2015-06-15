@@ -1,0 +1,11 @@
+<ion-view title="{{event.name}}">
+  <ion-content has-header="true" padding="true">
+      <div class="detail">
+          <h2>{{event.name}}</h2>
+          <p>期間: {{event.startDate}}〜{{event.endDate}}</p>
+          <p>場所: {{event.location.name}}</p>
+	  <p>説明: {{event.description}}</p>
+	  <img src="{{event.image}}" width="100%">
+      </div>
+  </ion-content>
+</ion-view>

@@ -1,6 +1,10 @@
 # イベント情報を公開するIonicアプリケーション
 アプリには[こちら](http://codeforchiba.github.io/IonicEventApp)から参照。
 
+## schema.org/EventベースのJSON-LDデータについて
+Google検索結果のスニペットにイベント情報を表示するためにwww/index.htmlにJSON-LDデータを用意した。
+構造化データテストツールは問題なし([こちら](https://developers.google.com/structured-data/testing-tool/?url=http://codeforchiba.github.io/IonicEventApp/www))。
+
 ## TODO
 - ログイン機能の実装
 - ユーザ固有情報の保存・表示(イベントブックマーク)

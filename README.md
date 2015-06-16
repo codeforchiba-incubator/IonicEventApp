@@ -13,10 +13,6 @@ Google検索結果のスニペットにイベント情報を表示するため�
 - IBM Bluemix/MobileFirst Platformとの連携
 - (ほかいろいろ)
 
-## バグ?
-- 緯度経度が同じ開催場所のイベント情報を地図上に複数表示できない
-- ios版で地図のマーカーリンクがクリックできない
-
 ## 参考
 Ionicの学習のために参考にしたサイト
 - [Ionic Tutorial](https://ccoenraets.github.io/ionic-tutorial/index.html): 研修情報をリストして詳細表示したり、Facebookログインを実装するIonicアプリを作成します。

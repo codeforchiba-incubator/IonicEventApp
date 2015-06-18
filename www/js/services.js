@@ -1,19 +1,45 @@
 angular.module('starter.services', ['ngResource'])
+
 // イベント
 .factory('EventService', function($q, $resource) {
     var events = $resource('./data/events.json').query();
 
-    // We use promises to make this api asynchronous. This is clearly not necessary when using in-memory data
-    // but it makes this service more flexible and plug-and-play. For example, you can now easily replace this
-    // service with a JSON service that gets its data from a remote server without having to changes anything
-    // in the modules invoking the data service since the api is already async.
     return {
-        findAll: function() {
+        // 文字列と開始日、終了日でイベント情報を検索する
+        find: function(string_s, start_s, end_s, distance_s, latitude_s, longitude_s) {
+            var deferred = $q.defer();
+            var results = events.filter(function(element) {
+		// 距離チェック
+	        var currentLatLng = new google.maps.LatLng(latitude_s,longitude_s);
+		var objectLatLng = new google.maps.LatLng(element.location.geo.latitude,element.location.geo.longitude);
+		var distance = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng,objectLatLng);
+		var distanceCheck = distance <= distance_s;
+
+                // 文字列チェック
+                var fullString = element.name + " " + element.description;
+		if(!string_s) string_s = "";
+                var stringCheck = fullString.toLowerCase().indexOf(string_s.toLowerCase()) > -1;
+
+                // 開始日、終了日チェック
+                var startDate = new Date(element.startDate);
+                var endDate = new Date(element.endDate);
+                var start = new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()).getTime();
+                var end = new Date(endDate.getFullYear(),endDate.getMonth(),endDate.getDate()).getTime();
+                var startEndCheck = (end - start_s.getTime()) * (end_s.getTime() - start) > 0;
+
+                return stringCheck && startEndCheck && distanceCheck;
+            });
+            deferred.resolve(results);
+            return deferred.promise;
+        },
+
+	findAll: function() {
             var deferred = $q.defer();
             deferred.resolve(events);
             return deferred.promise;
         },
 
+        // eventIdのイベント情報を返す
         findById: function(eventId) {
             var deferred = $q.defer();
             var event = events[eventId - 1];
@@ -21,36 +47,18 @@ angular.module('starter.services', ['ngResource'])
             return deferred.promise;
         },
 
-        findByString: function(searchKey) {
-            var deferred = $q.defer();
-            var results = events.filter(function(element) {
-                var fullString = element.name + " " + element.description;
-                return fullString.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
-            });
-            deferred.resolve(results);
-            return deferred.promise;
-        },
-
+        // fullcalendar用にイベント情報を変換する
         getCalendarInfo: function() {
-	    var json = "[";
+            var calEvents = new Array();
             for(var i=0; i<events.length; i++) {
-		if(i==events.length-1) {
-		    json = json + "{\"title\":\"" + events[i].name + "\"," +
-			"\"start\":\"" + events[i].startDate + "\"," +
-			"\"end\":\"" + events[i].endDate + "\"," +
-			"\"url\":\"#/app/event/" + events[i].id + "\"" +
-			"}";
-		} else {
-		    json = json + "{\"title\":\"" + events[i].name + "\"," +
-			"\"start\":\"" + events[i].startDate + "\"," +
-			"\"end\":\"" + events[i].endDate + "\"," +
-			"\"url\":\"#/app/event/" + events[i].id + "\"" +
-			"},";
-		}
-	    }
-	    json = json + "]";
-	    
-            return JSON.parse(json);
+                var calEvent = new Object();
+                calEvent['title'] = events[i].name;
+                calEvent['start'] = events[i].startDate;
+                calEvent['end'] = events[i].endDate;
+                calEvent['url'] = "#/app/calendar/" + events[i].id;
+                calEvents.push(calEvent);
+            }
+            return calEvents;
         }
     }
 });

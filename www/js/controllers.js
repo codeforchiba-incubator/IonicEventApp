@@ -1,47 +1,87 @@
 angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+// イベント情報リスト用コントローラ
+.controller('EventCtrl', function($scope, $ionicPopup, $ionicLoading, $cordovaGeolocation, EventService) {
+  // 検索文字列設定
+  $scope.searchKey = "";
+  $scope.clearSearch = function() {
+    $scope.searchKey = null;
+    EventService.find($scope.searchKey,$scope.searchStartDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
+      $scope.events = events;
+      updateCalInfo();
+    });
+  };
 
-  // Form data for the login modal
-  $scope.loginData = {};
+  // 検索期間の指定
+  var currentDate = new Date();
+  $scope.searchStartDate = new Date(currentDate.getFullYear(),currentDate.getMonth()-1,currentDate.getDate());
+  $scope.searchEndDate = new Date(currentDate.getFullYear(),currentDate.getMonth()+1,currentDate.getDate());
+  $scope.startDateSelected = function (startDate) {
+    if(startDate > $scope.searchEndDate) {
+      $ionicPopup.alert({
+        title: '検索期間不正',
+        template: '検索期間の開始日が終了日より後になってはいけません。'
+      });
+      startDate = $scope.searchStartDate;
+      return;
+    }
+    EventService.find($scope.searchKey,startDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
+      $scope.events = events;
+      updateCalInfo();
+    });
+  };
+  $scope.endDateSelected = function (endDate) {
+    if(endDate < $scope.searchStartDate) {
+      $ionicPopup.alert({
+        title: '検索期間不正',
+        template: '検索期間の終了日が開始日より前になってはいけません。'
+      });
+      endDate = $scope.searchEndDate;
+      return;
+    }
+    EventService.find($scope.searchKey,$scope.searchStartDate,endDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
+      $scope.events = events;
+      updateCalInfo();
+    });
+  };
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
+  // 検索距離の指定
+  $scope.distance = 100000;
+  $scope.changeDistance = function() {
+    EventService.find($scope.searchKey,$scope.searchStartDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
+      $scope.events = events;
+      updateCalInfo();
+    });
+  };
+
+  // 現在地の緯度経度の設定
+  $scope.latitude = 0;
+  $scope.longitude = 0;
+  $cordovaGeolocation.getCurrentPosition().then(function(position){
+    $scope.latitude = position.coords.latitude;
+    $scope.longitude = position.coords.longitude;
+  }, function (err) {
+    // TODO エラー処理
   });
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
+  // 検索
+  $scope.search = function() {
+    EventService.find($scope.searchKey,$scope.searchStartDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
+      $scope.events = events;
+      updateCalInfo();
+    });
   };
+  
+  // 初期表示のための検索
+  var firstSearch = function() {
+    EventService.findAll().then(function(events) {
+      $scope.events = events;
+      updateCalInfo();
+    });
+  }
+  firstSearch();
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
-})
-
-// カレンダー(fullcalendar)
-.controller('CalendarCtrl', function($scope, $ionicModal, $timeout, EventService) {
+  // ui-Calendar用
   $scope.eventSources = [];
   $scope.uiConfig = {
     calendar:{
@@ -60,17 +100,18 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
       events: EventService.getCalendarInfo()
     }
   };
-})
+  var updateCalInfo = function() {
+    $scope.eventSources = EventService.getCalendarInfo();
+    $('#eventCalendar').fullCalendar('refetchEvents');
+  };
 
-// Google Map
-.controller('MapCtrl', function($scope, $ionicLoading, EventService) {
-  // 初期呼出
+  // Google Map初期呼出
   $scope.mapCreated = function(map) {
     $scope.map = map;
     $scope.markers = new Array();
     EventService.findAll().then(function(events) {
       for(var i=0; i<events.length; i++) {
-	  $scope.addMarker(events[i].location.geo.latitude,events[i].location.geo.longitude,events[i].name,'#/app/event/'+events[i].id);
+	  $scope.addMarker(events[i].location.geo.latitude,events[i].location.geo.longitude,events[i].name,'#/app/map/'+events[i].id);
       }
     });
   };
@@ -86,11 +127,13 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
       showBackdrop: false
     });
 
-    navigator.geolocation.getCurrentPosition(function(pos) {
+    $cordovaGeolocation.getCurrentPosition().then(function(pos){
       $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
       $scope.loading.hide();
-    }, function(error) {
-      alert('現在地取得失敗: ' + error.message);
+    }, function (err) {
+      // 現在地取得失敗
+      alert('現在地取得失敗: ' + err.message);
+      $scope.loading.hide();
     });
   };
 
@@ -121,31 +164,9 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
   };
 })
 
-// イベント
-.controller('EventIndexCtrl', function($scope, EventService) {
-  $scope.searchKey = "";
-  $scope.clearSearch = function() {
-    $scope.searchKey = "";
-    findAllEvents();
-  }
-
-  $scope.search = function() {
-    EventService.findByString($scope.searchKey).then(function(events) {
-      $scope.events = events;
-    });
-  }
-
-  var findAllEvents = function() {
-    EventService.findAll().then(function(events) {
-      $scope.events = events;
-    });
-  }
-
-  findAllEvents();
-})
-
+// イベント詳細情報用コントローラ
 .controller('EventDetailCtrl', function($scope, $stateParams, EventService) {
   EventService.findById($stateParams.eventId).then(function(event) {
     $scope.event = event;
   });
-});
+    });

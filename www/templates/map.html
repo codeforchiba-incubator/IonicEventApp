@@ -1,13 +1,36 @@
 <ion-view title="地図">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
+  <ion-header-bar class="bar-subheader item-input-inset" >
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input id="searchKey" type="search" placeholder="検索文字列を入れてください。" ng-model="searchKey" autocorrect="off" ng-change="search()">
+    </label>
+    <button class="button button-small" ng-click="clearSearch()">キャンセル</button>
+  </ion-header-bar>
 
-  <ion-nav-buttons side="right">
-    <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a>
-  </ion-nav-buttons>
+  <ion-header-bar class="bar-subheader item-input-inset" >
+    <div class="row row-center">
+      <span class="label">開始日&nbsp;</span>
+      <ionic-datepicker idate="searchStartDate" disablepreviousdates="false" callback="startDateSelected">
+        <button class="button button-clear">{{searchStartDate|date:'MM月dd日'}}</button>
+      </ionic-datepicker>
+      <span class="label">&nbsp;&nbsp;終了日&nbsp;</span>
+      <ionic-datepicker idate="searchEndDate" disablepreviousdates="false" callback="endDateSelected">
+        <button class="button button-clear">{{searchEndDate|date:'MM月dd日'}}</button>
+      </ionic-datepicker>
+    </div>
+  </ion-header-bar>
 
-  <ion-content scroll="false">
+  <ion-header-bar class="bar-subheader item-input-inset" >
+    <div class="row row-center">
+      <span class="label">直線距離</span>
+      <div class="range range-assertive">
+        <input type="range" min="0" max="100000" value="{{distance}}" step="1000" ng-model="distance" ng-change="changeDistance()">
+        {{distance/1000}} km
+      </div>
+    </div>
+  </ion-header-bar>
+
+  <ion-content scroll="false" style="top: 196px">
     <map on-create="mapCreated(map)"></map>
   </ion-content>
 </ion-view>

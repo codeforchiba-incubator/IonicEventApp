@@ -21,6 +21,11 @@ Ionic学習用
 - [Ionic Tutorial](https://ccoenraets.github.io/ionic-tutorial/index.html): 研修情報をリストして詳細表示したり、Facebookログインを実装するIonicアプリを作成します。
 - [Advanced PhoneGap Hybrid App Tutorial](http://hollyschinsky.github.io/ConferenceTracker/index.html): Ionic Tutorialを成長させたチュートリアル。
 - [Sample Mobile Application with Ionic and AngularJS](http://coenraets.org/blog/2014/02/sample-mobile-application-with-ionic-and-angularjs/): 従業員リストと詳細を表示するIonicアプリを作成します。
+- [Build an App with Navigation and Routing](http://learn.ionicframework.com/formulas/navigation-and-routing-part-1/)
+- [ion-tabs](http://ionicframework.com/docs/api/directive/ionTabs/)
+
+AngularJS学習用
+- ionicのルーティングを実現する[ui-router](https://github.com/angular-ui/ui-router/wiki)
 
 Google Analytics
 - [Google Analytics + AngularJS](http://liginc.co.jp/web/js/other-js/137655)

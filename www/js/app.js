@@ -15,8 +15,14 @@ app.run(function($ionicPlatform) {
 })
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-  // 戻るボタンの文字を表示しない
-  $ionicConfigProvider.backButton.previousTitleText(false).text('');
+  $ionicConfigProvider
+  .tabs.style("standard")
+  .tabs.position("bottom") // tabの位置を底辺にセット
+  .views.transition("ios")
+  .navBar.alignTitle("center")
+  .navBar.positionPrimaryButtons('left')
+  .navBar.positionSecondaryButtons('right')
+  .backButton.previousTitleText(false).text(''); // 戻るボタンの文字を表示しない
 
   // 下記URLでない場合の遷移先を指定
   $urlRouterProvider.otherwise('/tabs/events');

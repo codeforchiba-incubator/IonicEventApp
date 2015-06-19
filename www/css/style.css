@@ -7,8 +7,3 @@ map {
 .scroll {
   height: 100%;
 }
-
-.tabs-top > .tabs, .tabs.tabs-top{
-  top: auto ;
-  bottom: 0 ;
-}

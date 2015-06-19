@@ -55,7 +55,7 @@ angular.module('starter.services', ['ngResource'])
                 calEvent['title'] = events[i].name;
                 calEvent['start'] = events[i].startDate;
                 calEvent['end'] = events[i].endDate;
-                calEvent['url'] = "#/app/calendar/" + events[i].id;
+                calEvent['url'] = "#/tabs/calendar/" + events[i].id;
                 calEvents.push(calEvent);
             }
             return calEvents;

@@ -19,20 +19,37 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.backButton.previousTitleText(false).text('');
 
   // 下記URLでない場合の遷移先を指定
-  $urlRouterProvider.otherwise('/app/event');
+  $urlRouterProvider.otherwise('/tabs/events');
 
   // ルーティング
   $stateProvider
 
   .state('app', {
-    url: "/app",
+    url: "",
     abstract: true,
-    templateUrl: "templates/menu.html",
-    controller: 'EventCtrl'
+    templateUrl: "templates/menu.html"
   })
 
-  .state('app.events', {
-    url: '/event',
+  .state('app.help', {
+    url: '/help',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/help.html'
+      }
+    }
+  })
+
+  .state('app.tabs', {
+    url: '/tabs',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/tabs.html'
+      }
+    }
+  })
+
+  .state('app.tabs.events', {
+    url: '/events',
     views: {
       'events': {
         templateUrl: 'templates/events.html',
@@ -40,9 +57,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
-
-  .state('app.event', {
-    url: '/event/:eventId',
+  .state('app.tabs.event', {
+    url: '/events/:eventId',
     views: {
       'events': {
         templateUrl: 'templates/event.html',
@@ -51,7 +67,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     }
   })
 
-  .state('app.calendar', {
+  .state('app.tabs.calendar', {
     url: "/calendar",
     views: {
       'calendar': {
@@ -60,8 +76,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
-
-  .state('app.calevent', {
+  .state('app.tabs.calevent', {
     url: '/calendar/:eventId',
     views: {
       'calendar': {
@@ -71,7 +86,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     }
   })
 
-  .state('app.map', {
+  .state('app.tabs.map', {
     url: "/map",
     views: {
       'map': {
@@ -80,8 +95,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
-
-  .state('app.mapevent', {
+  .state('app.tabs.mapevent', {
     url: '/map/:eventId',
     views: {
       'map': {

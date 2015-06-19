@@ -102,7 +102,7 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
   };
   var updateCalInfo = function() {
     $scope.eventSources = EventService.getCalendarInfo();
-    $('#eventCalendar').fullCalendar('refetchEvents');
+    //    $('#eventCalendar').fullCalendar('refetchEvents');
   };
 
   // Google Map初期呼出
@@ -111,7 +111,7 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
     $scope.markers = new Array();
     EventService.findAll().then(function(events) {
       for(var i=0; i<events.length; i++) {
-	  $scope.addMarker(events[i].location.geo.latitude,events[i].location.geo.longitude,events[i].name,'#/app/map/'+events[i].id);
+	  $scope.addMarker(events[i].location.geo.latitude,events[i].location.geo.longitude,events[i].name,'#/tabs/map/'+events[i].id);
       }
     });
   };

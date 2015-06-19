@@ -32,7 +32,7 @@
 
   <ion-content style="top: 195px">
     <ion-list>
-      <ion-item ng-repeat="event in events" class="item item-thumbnail-left" href="#/app/event/{{event.id}}">
+      <ion-item ng-repeat="event in events" class="item item-thumbnail-left" href="#/tabs/events/{{event.id}}">
 	<img src="{{event.image}}" width="100">
         <h2>{{event.name}}</h2>
         <p>期間: {{event.startDate}}〜{{event.endDate}}</p>

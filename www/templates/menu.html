@@ -6,7 +6,10 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close ui-sref="app.events">
+        <ion-item menu-close ui-sref="app.help">
+          ヘルプ
+        </ion-item>
+        <ion-item menu-close ui-sref="app.tabs.events">
           イベント
         </ion-item>
       </ion-list>
@@ -23,17 +26,6 @@
       </ion-nav-buttons>
     </ion-nav-bar>
 
-    <!-- タブ -->
-    <ion-tabs>
-      <ion-tab title="Events" icon="ion-home" ui-sref="app.events">
-	<ion-nav-view name="events"></ion-nav-view>
-      </ion-tab>
-      <ion-tab title="Calendar" icon="ion-calendar" ui-sref="app.calendar">
-	<ion-nav-view name="calendar"></ion-nav-view>
-      </ion-tab>
-      <ion-tab title="Map" icon="ion-map" ui-sref="app.map">
-	<ion-nav-view name="map"></ion-nav-view>
-      </ion-tab>
-    </ion-tabs>
+    <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 </ion-side-menus>

@@ -41,9 +41,9 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
   .state('app.tabs', {
     url: '/tabs',
+    abstract: true,
     views: {
       'menuContent': {
-	abstract: true,
         templateUrl: 'templates/tabs.html'
       }
     }

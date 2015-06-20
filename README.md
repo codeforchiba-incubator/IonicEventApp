@@ -10,7 +10,8 @@
 - [AngularUI](http://angular-ui.github.io/)
 - [AngularUI UI Calendar](http://angular-ui.github.io/ui-calendar/): fullcalendarのAngularJS版
 - [ion-tabs](http://ionicframework.com/docs/api/directive/ionTabs/): 画面下部のタブ
-- [ionic-datepicker](https://github.com/rajeshwarpatlolla/ionic-datepicker): 検索条件設定用のDate Picker。日本語にカスタマイズし。
+- [ionic-datepicker](https://github.com/rajeshwarpatlolla/ionic-datepicker): 検索条件設定用のDate Picker。日本語にカスタマイズ。
+- [AngularUI UI-GMap](http://angular-ui.github.io/angular-google-maps/): Google Mapsのdirective
 
 ## TODO(やりたいこと)
 - (完成)イベント情報の絞り込み機能(開催日、現在地からの距離で絞り込み)
@@ -35,7 +36,6 @@ Ionic学習用
 
 AngularJS学習用
 - ionicのルーティングを実現する[ui-router](https://github.com/angular-ui/ui-router/wiki)
-- [AngularUI UI-GMap](http://angular-ui.github.io/angular-google-maps/): Google Mapsのdirective
 
 Google Analytics
 - [Google Analytics + AngularJS](http://liginc.co.jp/web/js/other-js/137655)

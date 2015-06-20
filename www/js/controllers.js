@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
+angular.module('starter.controllers', ['starter.services', 'ui.calendar', 'uiGmapgoogle-maps'])
 
 // イベント情報リスト用コントローラ
 .controller('EventCtrl', function($scope, $ionicPopup, $ionicLoading, $cordovaGeolocation, EventService) {
@@ -8,7 +8,6 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
     $scope.searchKey = null;
     EventService.find($scope.searchKey,$scope.searchStartDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
       $scope.events = events;
-      updateCalInfo();
     });
   };
 
@@ -24,7 +23,6 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
     }
     EventService.find($scope.searchKey,startDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
       $scope.events = events;
-      updateCalInfo();
     });
     return startDate;
   };
@@ -37,7 +35,6 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
     }
     EventService.find($scope.searchKey,$scope.searchStartDate,endDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
       $scope.events = events;
-      updateCalInfo();
     });
   };
 
@@ -46,7 +43,6 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
   $scope.changeDistance = function() {
     EventService.find($scope.searchKey,$scope.searchStartDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
       $scope.events = events;
-      updateCalInfo();
     });
   };
 
@@ -64,7 +60,6 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
   $scope.search = function() {
     EventService.find($scope.searchKey,$scope.searchStartDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
       $scope.events = events;
-      updateCalInfo();
     });
   };
   
@@ -72,7 +67,6 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
   var firstSearch = function() {
     EventService.findAll().then(function(events) {
       $scope.events = events;
-      updateCalInfo();
     });
   }
   firstSearch();
@@ -96,67 +90,15 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
       events: EventService.getCalendarInfo()
     }
   };
-  var updateCalInfo = function() {
-    $scope.eventSources = EventService.getCalendarInfo();
-    //    $('#eventCalendar').fullCalendar('refetchEvents');
-  };
 
   // Google Map初期呼出
-  $scope.mapCreated = function(map) {
-    $scope.map = map;
-    $scope.markers = new Array();
-    EventService.findAll().then(function(events) {
-      for(var i=0; i<events.length; i++) {
-	  $scope.addMarker(events[i].location.geo.latitude,events[i].location.geo.longitude,events[i].name,'#/tabs/map/'+events[i].id);
-      }
-    });
-  };
-
-  // 現在地に移動
-  $scope.centerOnMe = function() {
-    if (!$scope.map) {
-      return;
-    }
-
-    $scope.loading = $ionicLoading.show({
-      content: '現在地を取得しています',
-      showBackdrop: false
-    });
-
-    $cordovaGeolocation.getCurrentPosition().then(function(pos){
-      $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-      $scope.loading.hide();
-    }, function (err) {
-      // 現在地取得失敗
-      alert('現在地取得失敗: ' + err.message);
-      $scope.loading.hide();
-    });
-  };
-
-  // マーカーの追加
-  $scope.addMarker = function(glat, glong, title, url){
-      var markerPosition = new google.maps.LatLng(glat, glong);
-      var marker = new google.maps.Marker({
-	      position: markerPosition,
-	      map: $scope.map,
-	      title: title,
-	      icon: 'http://maps.google.co.jp/mapfiles/ms/icons/blue-dot.png'
-	  });
-
-      var infoWindow = new google.maps.InfoWindow({
-	      content: '<div class="infoWindow padding"><a href="' + url + '">' + title + '</a></div>'
-	  });
-
-      // add event listener for marker
-      google.maps.event.addListener(marker, 'click', function(){
-	      if($scope.openInfoWindow){
-		  $scope.openInfoWindow.close();
-	      }
-	      $scope.openInfoWindow = infoWindow;
-	      $scope.openInfoWindow.open($scope.map, marker);
-	  });
-
-      $scope.markers.push(marker);
+  $scope.map = {
+      center: {
+	  latitude: 35.613281,
+	  longitude: 140.112869
+      },
+      zoom: 10,
+      markers: EventService.getMarkerInfo()
   };
 })
 
@@ -165,4 +107,23 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
   EventService.findById($stateParams.eventId).then(function(event) {
     $scope.event = event;
   });
-    });
+})
+
+// Instagram用コントローラ
+.controller('InstafeedCtrl', function($scope, $stateParams, EventService) {
+  $scope.feed = new Instafeed({
+    get: 'tagged',
+    tagName: 'chibalotte',
+    clientId: '6c32ef1ca54a4f32a22075a3b90aa2e2',
+    sortBy:'most-recent',
+    links: false,
+    limit: 100,
+    resolution: 'low_resolution',
+    template: '<li><a href="{{link}}" target="_blank"><img src="{{image}}"/></a><br/>{{caption}}<br/>like:{{likes}}</li>'
+  });
+  $scope.feed.run();
+
+  $scope.next = function() {
+      feed.next();
+  };
+});

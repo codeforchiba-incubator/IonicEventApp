@@ -1,0 +1,14 @@
+{
+  "name": "instafeed.js",
+  "homepage": "https://github.com/stevenschobert/instafeed.js",
+  "version": "1.3.2",
+  "_release": "1.3.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.3.2",
+    "commit": "148b6dec6eceeb8a5512e815a82ba7869beb3197"
+  },
+  "_source": "git://github.com/stevenschobert/instafeed.js.git",
+  "_target": "*",
+  "_originalSource": "instafeed.js"
+}

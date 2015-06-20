@@ -59,6 +59,25 @@ angular.module('starter.services', ['ngResource'])
                 calEvents.push(calEvent);
             }
             return calEvents;
+        },
+
+        // Google Mapのマーカー用にイベント情報を変換する
+        getMarkerInfo: function() {
+          var markers = new Array();
+          for(var i=0; i<events.length; i++) {
+	      var marker = {
+		  id: events[i].id,
+		  title: "<a href='#/tabs/map/" + events[i].id + "'>" + events[i].name + "</a>",
+		  latitude: events[i].location.geo.latitude,
+		  longitude: events[i].location.geo.longitude,
+		  show: false,
+		  onClick: function() {
+		      this.show = !this.show;
+		  }.bind(this)
+	      };
+	      markers.push(marker);
+          }
+          return markers;
         }
     }
 });

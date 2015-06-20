@@ -6,6 +6,8 @@
     "ionicons": "*",
     "angular-resource": "*",
     "angular-ui-calendar": "*",
-    "ngCordova": "*"
+    "angular-google-maps": "*",
+    "ngCordova": "*",
+    "instafeed.js": "*"
   }
 }

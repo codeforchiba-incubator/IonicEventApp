@@ -1,5 +1,11 @@
 <ion-view title="地図">
   <ion-content scroll="false">
-    <map on-create="mapCreated(map)"></map>
+    <ui-gmap-google-map center="map.center" zoom="map.zoom">
+      <ui-gmap-markers models="map.markers" coords="'self'" icon="'icon'" click="onClick()">
+        <ui-gmap-windows show="hoge">
+          <div ng-non-bindable>{{title}}</div>
+        </ui-gmap-windows>
+      </ui-gmap-markers>
+    </ui-gmap-google-map>
   </ion-content>
 </ion-view>

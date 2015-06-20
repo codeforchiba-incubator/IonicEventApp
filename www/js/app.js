@@ -1,5 +1,5 @@
 // Ionic Starter App
-var app = angular.module('starter', ['ionic', 'ionic-datepicker', 'starter.controllers', 'starter.directives', 'ngCordova'])
+var app = angular.module('starter', ['ionic', 'ionic-datepicker', 'starter.controllers', 'ngCordova'])
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -34,15 +34,6 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     url: "",
     abstract: true,
     templateUrl: "templates/menu.html"
-  })
-
-  .state('app.help', {
-    url: '/help',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/help.html'
-      }
-    }
   })
 
   .state('app.tabs', {
@@ -108,6 +99,25 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       'map': {
         templateUrl: 'templates/event.html',
         controller: 'EventDetailCtrl'
+      }
+    }
+  })
+
+  .state('app.help', {
+    url: '/help',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/help.html'
+      }
+    }
+  })
+
+  .state('app.instafeed', {
+    url: '/instafeed',
+    views: {
+      'menuContent': {
+	  templateUrl: 'templates/instafeed.html',
+	  controller: 'InstafeedCtrl'
       }
     }
   })

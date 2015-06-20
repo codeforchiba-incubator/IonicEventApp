@@ -18,26 +18,22 @@ angular.module('starter.controllers', ['starter.services', 'ui.calendar'])
   $scope.searchEndDate = new Date(currentDate.getFullYear(),currentDate.getMonth()+1,currentDate.getDate());
   $scope.startDateSelected = function (startDate) {
     if(startDate > $scope.searchEndDate) {
-      $ionicPopup.alert({
-        title: '検索期間不正',
-        template: '検索期間の開始日が終了日より後になってはいけません。'
-      });
-      startDate = $scope.searchStartDate;
-      return;
+      var msg = {title: '検索期間不正', template: '検索期間の開始日が終了日より後になってはいけません。'};
+      $ionicPopup.alert(msg);
+      throw msg;
     }
     EventService.find($scope.searchKey,startDate,$scope.searchEndDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
       $scope.events = events;
       updateCalInfo();
     });
+    return startDate;
   };
   $scope.endDateSelected = function (endDate) {
     if(endDate < $scope.searchStartDate) {
-      $ionicPopup.alert({
-        title: '検索期間不正',
-        template: '検索期間の終了日が開始日より前になってはいけません。'
-      });
+      var msg = {title: '検索期間不正', template: '検索期間の終了日が開始日より前になってはいけません。'};
+      $ionicPopup.alert(msg);
       endDate = $scope.searchEndDate;
-      return;
+      throw msg;
     }
     EventService.find($scope.searchKey,$scope.searchStartDate,endDate,$scope.distance,$scope.latitude,$scope.longitude).then(function(events) {
       $scope.events = events;

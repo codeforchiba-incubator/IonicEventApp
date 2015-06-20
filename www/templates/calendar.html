@@ -1,36 +1,5 @@
 <ion-view view-title="カレンダー">
-  <ion-header-bar class="bar-subheader item-input-inset" >
-    <label class="item-input-wrapper">
-      <i class="icon ion-ios-search placeholder-icon"></i>
-      <input id="searchKey" type="search" placeholder="検索文字列を入れてください。" ng-model="searchKey" autocorrect="off" ng-change="search()">
-    </label>
-    <button class="button button-small" ng-click="clearSearch()">キャンセル</button>
-  </ion-header-bar>
-
-  <ion-header-bar class="bar-subheader item-input-inset" >
-    <div class="row row-center">
-      <span class="label">開始日&nbsp;</span>
-      <ionic-datepicker idate="searchStartDate" disablepreviousdates="false" callback="startDateSelected">
-        <button class="button button-clear">{{searchStartDate|date:'MM月dd日'}}</button>
-      </ionic-datepicker>
-      <span class="label">&nbsp;&nbsp;終了日&nbsp;</span>
-      <ionic-datepicker idate="searchEndDate" disablepreviousdates="false" callback="endDateSelected">
-        <button class="button button-clear">{{searchEndDate|date:'MM月dd日'}}</button>
-      </ionic-datepicker>
-    </div>
-  </ion-header-bar>
-
-  <ion-header-bar class="bar-subheader item-input-inset" >
-    <div class="row row-center">
-      <span class="label">直線距離</span>
-      <div class="range range-assertive">
-        <input type="range" min="0" max="100000" value="{{distance}}" step="1000" ng-model="distance" ng-change="changeDistance()">
-        {{distance/1000}} km
-      </div>
-    </div>
-  </ion-header-bar>
-
-  <ion-content class="padding" style="top: 196px">
+  <ion-content class="padding">
     <div id="eventCalendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="eventCalendar"></div>
   </ion-content>
 </ion-view>

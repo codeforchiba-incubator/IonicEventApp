@@ -23,9 +23,13 @@ Ionic学習用
 - [Sample Mobile Application with Ionic and AngularJS](http://coenraets.org/blog/2014/02/sample-mobile-application-with-ionic-and-angularjs/): 従業員リストと詳細を表示するIonicアプリを作成します。
 - [Build an App with Navigation and Routing](http://learn.ionicframework.com/formulas/navigation-and-routing-part-1/)
 - [ion-tabs](http://ionicframework.com/docs/api/directive/ionTabs/)
+- [ionic-datepicker](https://github.com/rajeshwarpatlolla/ionic-datepicker)
 
 AngularJS学習用
+- [AngularUI](http://angular-ui.github.io/)
 - ionicのルーティングを実現する[ui-router](https://github.com/angular-ui/ui-router/wiki)
+- fullcalendarのAngularJS版[AngularUI UI Calendar](http://angular-ui.github.io/ui-calendar/)
+- Google Mapsのdirective[AngularUI UI-GMap](http://angular-ui.github.io/angular-google-maps/)
 
 Google Analytics
 - [Google Analytics + AngularJS](http://liginc.co.jp/web/js/other-js/137655)

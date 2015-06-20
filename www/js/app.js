@@ -18,7 +18,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   // スタイルの設定
   $ionicConfigProvider.tabs.style("standard");
   $ionicConfigProvider.tabs.position("bottom");
-  $ionicConfigProvider.views.transition("ios");
+  $ionicConfigProvider.views.transition("platform");
   $ionicConfigProvider.navBar.alignTitle("center");
   $ionicConfigProvider.navBar.positionPrimaryButtons('left');
   $ionicConfigProvider.navBar.positionSecondaryButtons('right');
